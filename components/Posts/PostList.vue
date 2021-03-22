@@ -1,27 +1,13 @@
 <template>
     <section class="post-list">
-      <PostPreview 
-        id="1"
+      <PostPreview
+        v-for="post in posts"
+        :key="post.id"
+        :id="post.id"
         :is-admin="isAdmin"
-        :thumbnail="thumbnail"
-        title="First Post"
-        previewText="This is my first post!"
-      />
-
-      <PostPreview 
-        id="2"
-        :is-admin="isAdmin"
-        :thumbnail="thumbnail"
-        title="Second Post"
-        previewText="This is my second post!"
-      />
-
-      <PostPreview 
-        id="3"
-        :is-admin="isAdmin"
-        :thumbnail="thumbnail"
-        title="Third Post"
-        previewText="This is my Third post!"
+        :thumbnail="post.thumbnail"
+        :title="post.title"
+        :previewText="post.previewText"
       />
 
     </section>
@@ -36,14 +22,13 @@ export default {
     isAdmin: {
       type: Boolean,
       default: false
+    },
+
+    posts: {
+      type: Array,
+      required: true
     }
   },
-
-  data() {
-    return {
-      thumbnail: 'https://s7280.pcdn.co/wp-content/uploads/2020/06/Ai-Abstract-Cityscape-700x400-1.jpg.optimal.jpg'
-    }
-  }
 }
 </script>
 

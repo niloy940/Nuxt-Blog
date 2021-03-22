@@ -1,14 +1,14 @@
 <template>
   <div class="single-post-page">
     <section class="post">
-      <h1 class="post-title">Title of the post</h1>
+      <h1 class="post-title">{{ loadedPost.title }}</h1>
 
       <div class="post-details">
-        <div class="post-detail">Last updated on XXX</div>
-        <div class="post-detail">Written by NAME</div>
+        <div class="post-detail">Last updated on {{ loadedPost.updatedData }}</div>
+        <div class="post-detail">Written by {{ loadedPost.author }}</div>
       </div>
 
-      <p class="post-content">Content of the post</p>
+      <p class="post-content">{{ loadedPost.content }}</p>
     </section>
 
     <section class="post-feedback">
@@ -21,7 +21,25 @@
 </template>
 
 <script>
-export default {}
+export default {
+  asyncData(context, callback) {
+    setTimeout(()=> {
+      callback(null, {
+
+        loadedPost: {
+          id: '1', 
+          title: 'Post Title (ID: ' + context.route.params.id + ')', 
+          previewText: 'This is our first post!',
+          author: 'Niloy',
+          updatedData: new Date(),
+          content: 'Cupidatat non quis cupidatat dolor eiusmod fugiat incididunt fugiat ex aliqua incididunt pariatur. Nisi mollit cillum ullamco nulla cillum non velit elit adipisicing id dolore dolore. Occaecat aliqua tempor est velit elit dolor laborum in eiusmod adipisicing. Adipisicing irure culpa qui reprehenderit aute ad laboris.',
+          thumbnail: 'https://s7280.pcdn.co/wp-content/uploads/2020/06/Ai-Abstract-Cityscape-700x400-1.jpg.optimal.jpg'
+        }
+
+      })
+    }, 1500)
+  }
+}
 </script>
 
 <style scoped>
