@@ -1,6 +1,6 @@
 <template>
   <div class="posts-page">
-    <PostList :posts="loadedPosts"/>
+    <PostList :posts="getLoadedPosts"/>
   </div>
 </template>
 
@@ -9,34 +9,10 @@ import PostList from '~/components/Posts/PostList.vue'
 export default {
   components: { PostList },
 
-  asyncData(context) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve({
-          loadedPosts: [
-            { id: '1', title: 'First Post', previewText: 'This is our first post!',
-              thumbnail: 'https://s7280.pcdn.co/wp-content/uploads/2020/06/Ai-Abstract-Cityscape-700x400-1.jpg.optimal.jpg'
-            },
-
-            { id: '2', title: 'Second Post', previewText: 'This is our second post!',
-              thumbnail: 'https://s7280.pcdn.co/wp-content/uploads/2020/06/Ai-Abstract-Cityscape-700x400-1.jpg.optimal.jpg'
-            },
-
-            { id: '3', title: 'Third Post', previewText: 'This is our third post!',
-              thumbnail: 'https://s7280.pcdn.co/wp-content/uploads/2020/06/Ai-Abstract-Cityscape-700x400-1.jpg.optimal.jpg'
-            },
-          ]
-        });
-      }, 1000);
-
-    })
-    .then(data => {
-      return data
-    })
-    .catch(e => {
-      context.error(new Error());
-    })
-    
+  computed: {
+    getLoadedPosts()  {
+      return this.$store.getters.loadedPosts
+    }
   }
 }
 </script>
