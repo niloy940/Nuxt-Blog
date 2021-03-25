@@ -4,8 +4,12 @@
       <h1 class="post-title">{{ loadedPost.title }}</h1>
 
       <div class="post-details">
-        <div class="post-detail">Last updated on {{ loadedPost.updatedData }}</div>
+        <div class="post-detail">Last updated on {{ loadedPost.updatedDate }}</div>
         <div class="post-detail">Written by {{ loadedPost.author }}</div>
+      </div>
+
+      <div class="post-thumbnail" 
+          :style="{backgroundImage: 'url(' + loadedPost.thumbnail + ')' }">
       </div>
 
       <p class="post-content">{{ loadedPost.content }}</p>
@@ -21,32 +25,17 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   asyncData(context) {
-    return new Promise((resolve, reject) => {
-      setTimeout(()=> {
-        resolve({
-
-          loadedPost: {
-            id: '1', 
-            title: 'Post Title (ID: ' + context.route.params.id + ')', 
-            previewText: 'This is our first post!',
-            author: 'Niloy',
-            updatedData: new Date(),
-            content: 'Cupidatat non quis cupidatat dolor eiusmod fugiat incididunt fugiat ex aliqua incididunt pariatur. Nisi mollit cillum ullamco nulla cillum non velit elit adipisicing id dolore dolore. Occaecat aliqua tempor est velit elit dolor laborum in eiusmod adipisicing. Adipisicing irure culpa qui reprehenderit aute ad laboris.',
-            thumbnail: 'https://s7280.pcdn.co/wp-content/uploads/2020/06/Ai-Abstract-Cityscape-700x400-1.jpg.optimal.jpg'
-          }
-
-        })
-      }, 1000)
-    })
-    .then(data => {
-      return data
-    })
-    .catch(e => {
-      context.error(new Error())
-    })
-    
+    return axios.get('https://nuxt-bloggers-default-rtdb.firebaseio.com/posts/' + context.params.id + '.json')
+              .then(res => {
+                return {
+                  loadedPost: res.data
+                }
+              })
+              .catch(e => context.error(e))
   }
 }
 </script>
@@ -102,5 +91,14 @@ export default {
 .post-feedback a:hover,
 .post-feedback a:active {
   color: salmon;
+}
+
+.post-thumbnail {
+  width: 50%;
+  height: 200px;
+  background-position: center;
+  background-size: cover;
+  margin-left: 25%;
+  margin-top: 10px;
 }
 </style>

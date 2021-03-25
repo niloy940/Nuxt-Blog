@@ -19,9 +19,10 @@ export default {
 
   methods: {
     onSubmitted(postData) {
-      axios.post('https://nuxt-bloggers-default-rtdb.firebaseio.com/posts.json', postData)
-        .then(response => console.log(response))
-        .catch(e => console.log(e))
+      this.$store.dispatch('addPost', postData)
+        .then(() => {
+          this.$router.push('/admin')
+        })
     }
   }
 }
