@@ -15,7 +15,7 @@ const createStore = ()=> {
 
         actions: {
             nuxtServerInit(vuexContext, context) {
-                return axios.get('https://nuxt-bloggers-default-rtdb.firebaseio.com/posts.json')
+                return axios.get(process.env.baseUrl + '/posts.json')
                 .then(res => {
                     const postsArray = []
 
@@ -36,7 +36,7 @@ const createStore = ()=> {
                 const createdPost = {...post, updatedDate: new Date() }
 
                 return axios
-                        .post('https://nuxt-bloggers-default-rtdb.firebaseio.com/posts.json', createdPost)
+                        .post(process.env.baseUrl + '/posts.json', createdPost)
                         .then(response => {
                             vuexContext.commit('addPost', {...createdPost, id: response.data.name })
 

@@ -23,12 +23,17 @@ export default {
     ]
   },
 
+  // Customize the progressbar color
+  loading: { color: 'blue', height: '4px', duration: 7000 },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    '~/assets/styles/main.css'
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/core-components.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -49,5 +54,15 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  }
+  },
+
+  env: {
+    baseUrl: process.env.BASE_URL || 'https://nuxt-bloggers-default-rtdb.firebaseio.com'
+  },
+
+  transition: {
+    name: 'fade',
+    mode: 'out-in'
+  },
+
 }

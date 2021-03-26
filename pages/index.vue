@@ -9,15 +9,7 @@
 </template>
 
 <script>
-import PostList from '~/components/Posts/PostList.vue'
-
 export default {
-  components: { PostList },
-
-  // created() {
-  //   this.$store.dispatch('setPosts', this.loadedPosts)
-  // },
-
   computed: {
     getLoadedPosts()  {
       return this.$store.getters.loadedPosts
