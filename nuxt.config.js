@@ -60,7 +60,8 @@ export default {
   },
 
   env: {
-    baseUrl: process.env.BASE_URL || 'https://nuxt-bloggers-default-rtdb.firebaseio.com'
+    baseUrl: process.env.BASE_URL || 'https://nuxt-bloggers-default-rtdb.firebaseio.com',
+    fbAPIKey: 'AIzaSyAedtfFTNW7VI3wrtSSKwoZCvj5mE9CKI0'
   },
 
   transition: {
