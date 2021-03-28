@@ -12,6 +12,8 @@ import AdminPostForm from '~/components/Admin/AdminPostForm.vue'
 export default {
   name: 'new-post',
 
+  middleware: ['auth'],
+
   layout: 'admin',
   
   components: { AdminPostForm },
