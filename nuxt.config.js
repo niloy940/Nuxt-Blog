@@ -70,7 +70,7 @@ export default {
   },
 
   router: {
-    base: '/Nuxt-Blog/dist'
+    base: '/Nuxt-Blog/dist/'
   }
 
 }
