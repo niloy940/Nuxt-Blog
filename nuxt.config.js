@@ -1,6 +1,6 @@
 export default {
   // Target: https://go.nuxtjs.dev/config-target
-  target: 'server',
+  target: 'static',
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -64,7 +64,7 @@ export default {
     fbAPIKey: 'AIzaSyAedtfFTNW7VI3wrtSSKwoZCvj5mE9CKI0'
   },
 
-  transition: {
+  pageTransition: {
     name: 'fade',
     mode: 'out-in'
   },
