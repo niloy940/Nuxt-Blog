@@ -69,4 +69,8 @@ export default {
     mode: 'out-in'
   },
 
+  router: {
+    base: '/Nuxt-Blog/'
+  }
+
 }
