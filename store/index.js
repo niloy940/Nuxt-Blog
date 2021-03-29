@@ -1,4 +1,5 @@
 import Vuex from 'vuex'
+import Cookie from 'js-cookie';
 
 const createStore = ()=> {
     return new Vuex.Store({
@@ -75,15 +76,49 @@ const createStore = ()=> {
                     })
                     .then(res => {
                         vuexContext.commit('setToken', res.idToken)
-                        vuexContext.dispatch('setLogoutTimer', res.expiresIn * 1000)
+                        localStorage.setItem('token', res.idToken)
+                        localStorage.setItem('tokenExpiration', new Date().getTime() + +res.expiresIn * 1000)
+                        
+                        Cookie.set('jwt', res.idToken)
+                        Cookie.set('expirationDate', new Date().getTime() + +res.expiresIn * 1000)
                     })
                     .catch(e => console.log(e))
             },
 
-            setLogoutTimer(vuexContext, duration) {
-                setTimeout(()=> {
+            initAuth(vuexContext, req) {
+                let token;
+                let expirationDate;
+
+                if (req) {
+                    if (!req.headers.cookie) {
+                        return;
+                    }
+
+                    const jwtCookie = req.headers.cookie
+                        .split(';')
+                        .find(c => c.trim().startsWith('jwt='))
+
+                    if (!jwtCookie) {
+                        return;
+                    }
+                    token = jwtCookie.split('=')[1]
+
+                    expirationDate = req.headers.cookie
+                        .split(';')
+                        .find(c => c.trim().startsWith('expirationDate='))
+                        .split('=')[1]
+
+                } else {
+                    token = localStorage.getItem('token')
+                    expirationDate = localStorage.getItem('tokenExpiration')
+                }
+
+                if (new Date().getTime() > +expirationDate || !token) {
                     vuexContext.commit('clearToken')
-                }, duration)
+                    return;
+                }
+
+                vuexContext.commit('setToken', token)
             }
         },
 

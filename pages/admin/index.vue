@@ -18,7 +18,7 @@ export default {
 
   layout: 'admin',
 
-  middleware: 'auth',
+  middleware: ['check-auth', 'auth'],
 
   computed: {
     getLoadedPosts() {
